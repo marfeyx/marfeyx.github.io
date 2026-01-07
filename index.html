@@ -8,10 +8,10 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden;
             font-family: Arial, sans-serif;
             background: #0a0a0a;
             color: white;
+            overflow: hidden;
         }
 
         canvas {
@@ -19,12 +19,22 @@
             position: absolute;
             top: 0;
             left: 0;
+            z-index: 0;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+            z-index: 1;
         }
 
         .center-box {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
             background: #ff4d4d;
             border-radius: 20px;
             padding: 40px;
@@ -67,36 +77,27 @@
             background: #ffe6e6;
             transform: translateY(-2px);
         }
-
-        /* Spezifische Positionen für die beiden Boxen */
-        #links-box {
-            top: 25%;
-        }
-
-        #tasks-box {
-            top: 55%;
-        }
     </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
 
-    <!-- Links Box -->
-    <div class="center-box" id="links-box">
-        <img src="https://github.com/marfeyx.png" alt="Github Profilbild">
-        <h1>My Links</h1>
-        <div class="buttons">
-            <a href="https://github.com/marfeyx" target="_blank">GitHub</a>
-            <a href="https://github.com/marfeyx/CS2-Case-Simulator" target="_blank">Case Simulator Project</a>
-            <a href="https://ultimate-marshop.mysellauth.com/" target="_blank">Shop</a>
+    <div class="container">
+        <div class="center-box">
+            <img src="https://github.com/marfeyx.png" alt="Github Profilbild">
+            <h1>My Links</h1>
+            <div class="buttons">
+                <a href="https://github.com/marfeyx" target="_blank">GitHub</a>
+                <a href="https://github.com/marfeyx/CS2-Case-Simulator" target="_blank">Case Simulator Project</a>
+                <a href="https://ultimate-marshop.mysellauth.com/" target="_blank">Shop</a>
+            </div>
         </div>
-    </div>
 
-    <!-- Tasks Box -->
-    <div class="center-box" id="tasks-box">
-        <h1>Tasks</h1>
-        <div class="buttons">
-            <a href="projects.html">Go to Projects</a>
+        <div class="center-box">
+            <h1>Tasks</h1>
+            <div class="buttons">
+                <a href="projects.html">Go to Projects</a>
+            </div>
         </div>
     </div>
 
