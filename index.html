@@ -1,202 +1,56 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>Marfeyx</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background: #0a0a0a;
-            color: white;
-            overflow: hidden;
-        }
-
-        canvas {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 50px;
-            z-index: 1;
-        }
-
-        .center-box {
-            background: #ff4d4d;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            width: 300px;
-            box-shadow: 0 0 20px rgba(255, 77, 77, 0.7);
-        }
-
-        .center-box img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            border: 3px solid white;
-        }
-
-        .center-box h1 {
-            margin: 0 0 15px 0;
-            font-size: 1.8em;
-        }
-
-        .center-box .buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .center-box a {
-            display: block;
-            text-decoration: none;
-            background: white;
-            color: #ff4d4d;
-            padding: 10px;
-            border-radius: 10px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .center-box a:hover {
-            background: #ffe6e6;
-            transform: translateY(-2px);
-        }
-    </style>
-</head>
-<body>
-    <canvas id="canvas"></canvas>
-
-    <div class="container">
-        <div class="center-box">
-            <img src="https://github.com/marfeyx.png" alt="Github Profilbild">
-            <h1>My Links</h1>
-            <div class="buttons">
-                <a href="https://github.com/marfeyx" target="_blank">GitHub</a>
-                <a href="https://github.com/marfeyx/CS2-Case-Simulator" target="_blank">Case Simulator Project</a>
-                <a href="https://ultimate-marshop.mysellauth.com/" target="_blank">Shop</a>
-            </div>
-        </div>
-
-        <div class="center-box">
-            <h1>Tasks</h1>
-            <div class="buttons">
-                <a href="projects.html">Go to Projects</a>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
-
-        const mouse = { x: width/2, y: height/2 };
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            initParticles();
-        });
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.radius = 2;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-            }
-
-            move() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if(this.x < 0 || this.x > width) this.vx *= -1;
-                if(this.y < 0 || this.y > height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = '#000';
-                ctx.fill();
-            }
-        }
-
-        let particlesArray = [];
-        const PARTICLE_COUNT = 100;
-
-        function initParticles() {
-            particlesArray = [];
-            for(let i=0; i<PARTICLE_COUNT; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function connectParticles() {
-            for(let i=0; i<particlesArray.length; i++) {
-                for(let j=i+1; j<particlesArray.length; j++) {
-                    let dx = particlesArray[i].x - particlesArray[j].x;
-                    let dy = particlesArray[i].y - particlesArray[j].y;
-                    let distance = Math.sqrt(dx*dx + dy*dy);
-
-                    if(distance < 100) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(255,255,255,${1 - distance/100})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                        ctx.stroke();
-                    }
-                }
-
-                let dx = particlesArray[i].x - mouse.x;
-                let dy = particlesArray[i].y - mouse.y;
-                let distance = Math.sqrt(dx*dx + dy*dy);
-                if(distance < 150) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(255,255,255,${1 - distance/150})`;
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.stroke();
-                }
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            particlesArray.forEach(p => {
-                p.move();
-                p.draw();
-            });
-            connectParticles();
-            requestAnimationFrame(animate);
-        }
-
-        initParticles();
-        animate();
-    </script>
-</body>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Link Hub · Home</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="style.css" />
+		<script src="background.js" defer></script>
+		<script src="script.js" defer></script>
+	</head>
+	<body>
+		<main class="site-shell">
+			<section class="link-card" data-card>
+				<img
+					src="profilbild.png"
+					alt="Profile"
+					class="profile-photo"
+				/>
+				<h1>Links</h1>
+				<p class="card-subtitle">My Links</p>
+				<nav class="button-stack" aria-label="Primary link list">
+					<a
+						href="socials.html"
+						class="link-button"
+						data-link-button
+						data-title="Social Profiles"
+						data-description="View my diffrent socials like GitHub, Youtube or add me on Discord!"
+						>Socials</a
+					>
+					<a
+						href="projects.html"
+						class="link-button"
+						data-link-button
+						data-title="Previously Made Projects"
+						data-description="View projects that i worked on for me or others previouly. This includes websites, console applications and other things."
+						>Projects</a
+					>
+				</nav>
+			</section>
+			<aside class="info-panel" data-info-panel>
+				<div class="info-panel__inner">
+					<p class="info-panel__title" data-info-title>Hover for context</p>
+					<p class="info-panel__text" data-info-text>
+						Glance over a link to preview what’s inside.
+					</p>
+				</div>
+			</aside>
+		</main>
+	</body>
 </html>
