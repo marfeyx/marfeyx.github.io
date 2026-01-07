@@ -53,7 +53,7 @@ class Particle {
 }
 
 let particlesArray = [];
-const PARTICLE_COUNT = 600;
+const PARTICLE_COUNT = 200;
 
 function initParticles() {
 	particlesArray = [];
