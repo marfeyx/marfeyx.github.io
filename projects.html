@@ -1,178 +1,90 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>Projects - Marfeyx</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            background: #0a0a0a;
-            color: white;
-        }
-
-        canvas {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .center-box {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ff4d4d;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            width: 300px;
-            box-shadow: 0 0 20px rgba(255, 77, 77, 0.7);
-        }
-
-        .center-box h1 {
-            margin: 0 0 15px 0;
-            font-size: 1.8em;
-        }
-
-        .center-box .buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .center-box a {
-            display: block;
-            text-decoration: none;
-            background: white;
-            color: #ff4d4d;
-            padding: 10px;
-            border-radius: 10px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .center-box a:hover {
-            background: #ffe6e6;
-            transform: translateY(-2px);
-        }
-
-        #projects-box {
-            top: 40%;
-        }
-    </style>
-</head>
-<body>
-    <canvas id="canvas"></canvas>
-
-    <div class="center-box" id="projects-box">
-        <h1>Projects</h1>
-        <div class="buttons">
-            <a href="https://github.com/marfeyx/CS2-Case-Simulator" target="_blank">Case Simulator Project</a>
-            <a href="https://ultimate-marshop.mysellauth.com/" target="_blank">Shop</a>
-            <a href="index.html">Back to Home</a>
-        </div>
-    </div>
-
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
-
-        const mouse = { x: width/2, y: height/2 };
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            initParticles();
-        });
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.radius = 2;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-            }
-
-            move() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if(this.x < 0 || this.x > width) this.vx *= -1;
-                if(this.y < 0 || this.y > height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = '#000';
-                ctx.fill();
-            }
-        }
-
-        let particlesArray = [];
-        const PARTICLE_COUNT = 100;
-
-        function initParticles() {
-            particlesArray = [];
-            for(let i=0; i<PARTICLE_COUNT; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function connectParticles() {
-            for(let i=0; i<particlesArray.length; i++) {
-                for(let j=i+1; j<particlesArray.length; j++) {
-                    let dx = particlesArray[i].x - particlesArray[j].x;
-                    let dy = particlesArray[i].y - particlesArray[j].y;
-                    let distance = Math.sqrt(dx*dx + dy*dy);
-
-                    if(distance < 100) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(255,255,255,${1 - distance/100})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                        ctx.stroke();
-                    }
-                }
-
-                let dx = particlesArray[i].x - mouse.x;
-                let dy = particlesArray[i].y - mouse.y;
-                let distance = Math.sqrt(dx*dx + dy*dy);
-                if(distance < 150) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(255,255,255,${1 - distance/150})`;
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.stroke();
-                }
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            particlesArray.forEach(p => {
-                p.move();
-                p.draw();
-            });
-            connectParticles();
-            requestAnimationFrame(animate);
-        }
-
-        initParticles();
-        animate();
-    </script>
-</body>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Link Hub · Projects</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="style.css" />
+		<script src="background.js" defer></script>
+		<script src="script.js" defer></script>
+	</head>
+	<body>
+		<main class="site-shell">
+			<section class="link-card" data-card>
+				<img
+					src="profilbild.png"
+					alt="Profile portrait"
+					class="profile-photo"
+				/>
+				<h1>Projects</h1>
+				<p class="card-subtitle">Some projects i've previously worked on.</p>
+				<nav class="button-stack" aria-label="Project links">
+					<a
+						href="https://example.com/atlas-dashboard"
+						class="link-button"
+						data-link-button
+						data-title="CS2 Simulator"
+						data-description="This is a small console application in C# that I worked on a few months ago that lets you unbox Counter Strike 2 cases and simulate rewards, the project is bloated and is unfinished. I am currently working on a new, better version."
+						target="_blank"
+						rel="noopener noreferrer"
+						>CS2 Case Opening Simulator Unfinished</a
+					>
+					<a
+						href="https://example.com/signal-lamp"
+						class="link-button"
+						data-link-button
+						data-title="Signal Lamp"
+						data-description="A simple website project I made in school. This was my first real project for a website including HTML, CSS and JS. The website dynamically loads products from an API."
+						target="_blank"
+						rel="noopener noreferrer"
+						>Tonys Elektro Schuppen</a
+					>
+					<a
+						href="https://example.com/modular-synth"
+						class="link-button"
+						data-link-button
+						data-title="Schedule 1 Steam Mod"
+						data-description="A simple Schedule 1 Mod I made meant to make quitting Schedule 1 much faster. This mod simply adds a new keybind that replaces the Alt + F4 keybind for people with a 60% or smaller keyboard."
+						target="_blank"
+						rel="noopener noreferrer"
+						>Schedule 1 Mod</a
+					>
+					<a
+						href="https://example.com/client-archive"
+						class="link-button"
+						data-link-button
+						data-title="Client Work Archive"
+						data-description="Client Work Archive catalogs select brand collaborations from the past five years."
+						target="_blank"
+						rel="noopener noreferrer"
+						>Client Work Archive</a
+					>
+					<a
+						href="https://example.com/playground"
+						class="link-button"
+						data-link-button
+						data-title="Playground Experiments"
+						data-description="Playground Experiments is where prototypes land before they become real."
+						target="_blank"
+						rel="noopener noreferrer"
+						>Playground Experiments</a
+					>
+				</nav>
+			</section>
+			<aside class="info-panel" data-info-panel>
+				<div class="info-panel__inner">
+					<p class="info-panel__title" data-info-title>Hover for context</p>
+					<p class="info-panel__text" data-info-text>
+						Glance over a link to preview what’s inside.
+					</p>
+				</div>
+			</aside>
+		</main>
+	</body>
 </html>
