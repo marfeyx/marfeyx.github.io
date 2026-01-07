@@ -23,9 +23,8 @@
 
         .center-box {
             position: absolute;
-            top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             background: #ff4d4d;
             border-radius: 20px;
             padding: 40px;
@@ -68,18 +67,36 @@
             background: #ffe6e6;
             transform: translateY(-2px);
         }
+
+        /* Spezifische Positionen für die beiden Boxen */
+        #links-box {
+            top: 30%;
+        }
+
+        #tasks-box {
+            top: 60%;
+        }
     </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
 
-    <div class="center-box">
+    <!-- Erste Box -->
+    <div class="center-box" id="links-box">
         <img src="https://github.com/marfeyx.png" alt="Github Profilbild">
         <h1>My Links</h1>
         <div class="buttons">
             <a href="https://github.com/marfeyx" target="_blank">GitHub</a>
             <a href="https://github.com/marfeyx/CS2-Case-Simulator" target="_blank">Case Simulator Project</a>
             <a href="https://ultimate-marshop.mysellauth.com/" target="_blank">Shop</a>
+        </div>
+    </div>
+
+    <!-- Neue Tasks Box -->
+    <div class="center-box" id="tasks-box">
+        <h1>Tasks</h1>
+        <div class="buttons">
+            <a href="projects.html">Go to Projects</a>
         </div>
     </div>
 
